@@ -364,8 +364,9 @@ end, { noremap = true, silent = true, desc = "Close floating terminal from termi
 
 ----------------------------------------------------------------
 
+-- https://neovim.io/doc/user/pack.html
 --- rm -rf /Users/yaser/.local/share/nvim/site/pack/core/opt/*
---- :lua vim.pack.update()
+--- :lua vim.pack.update() --> review then do :w
 vim.pack.add({
     -- { src = "https://github.com/chentoast/marks.nvim" },
     -- Theme
@@ -692,8 +693,8 @@ require('mini.pick').setup({
 -- https://nvim-mini.org/mini.nvim/doc/mini-pick.html#minipick.builtin
 -- vim.keymap.set({ "n" }, "<leader>sf", ":Pick files<CR>", { desc = "Picker file" })
 vim.keymap.set({ "n" }, "<leader>f", ":Pick files<CR>", { desc = "Picker file" })
--- vim.keymap.set({ "n" }, "<leader>sg", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
-vim.keymap.set({ "n" }, "<leader>g", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
+-- vim.keymap.set({ "n" }, "<leader>g", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
+vim.keymap.set({ "n" }, "<leader>sg", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
 -- vim.keymap.set({ "n" }, "<leader>sb", ":Pick buffers<CR>", { desc = "Picker buffers" })
 vim.keymap.set({ "n" }, "<leader><leader>", ":Pick buffers<CR>", { desc = "Picker buffers" })
 
