@@ -2,6 +2,7 @@
 -- https://www.youtube.com/watch?v=xGkL2N8w0H4
 -- https://www.youtube.com/watch?v=UE6XQTAxwE0
 -- https://github.com/radleylewis/nvim-lite/blob/master/init.lua
+-- https://gist.github.com/smnatale/692ac4f256d5f19fbcbb78fe32c87604
 
 ----------------------------------------------------------------
 
@@ -12,9 +13,9 @@ vim.o.cursorline = true     -- Highlight current line
 vim.o.wrap = true           -- wrap lines
 vim.o.linebreak = true
 vim.o.showbreak = "↳ "
-vim.o.scrolloff = 4                                          -- Keep 4 lines above/below cursor
+vim.o.scrolloff = 4 -- Keep 4 lines above/below cursor
 -- vim.o.sidescrolloff = 8 -- Keep 8 columns left/right of cursor
-vim.g.netrw_bufsettings = "noma nomod nu rnu nobl nowrap ro" -- Enable number in netrw
+-- vim.g.netrw_bufsettings = "noma nomod nu rnu nobl nowrap ro" -- Enable number in netrw
 
 -- Indentation
 vim.o.tabstop = 4        -- Tab width
@@ -38,9 +39,10 @@ vim.o.signcolumn = "yes" -- Always show sign column
 vim.o.showmatch = true   -- Highlight matching brackets
 -- vim.o.matchtime = 2                             -- How long to show matching bracket
 -- vim.o.cmdheight = 1                             -- Command line height
-vim.o.completeopt = "menuone,noinsert,noselect" -- Completion options
+-- since i use blink.cmp no need for below
+-- vim.o.completeopt = "menuone,noinsert,noselect" -- Completion options
 -- vim.cmd([[set completeopt+=menuone,noselect,popup]])
-vim.o.showmode = false                          -- Don't show mode in command line
+vim.o.showmode = false -- Don't show mode in command line
 -- vim.o.pumheight = 10                            -- Popup menu height
 -- vim.o.pumblend = 10                             -- Popup menu transparency
 -- vim.o.winblend = 0                              -- Floating window transparency
@@ -156,7 +158,8 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
 -- Quick file navigation
-vim.keymap.set("n", "<leader>e", ":Explore<CR>", { desc = "Open file explorer" })
+vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open file explorer" })
+-- vim.keymap.set("n", "<leader>e", ":Explore<CR>", { desc = "Open file explorer" })
 -- vim.keymap.set("n", "<leader>ff", ":find ", { desc = "Find file" })
 
 --- learning
@@ -189,6 +192,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.hl.on_yank()
     end,
 })
+
 
 -- Return to last edit position when opening files
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -248,6 +252,30 @@ vim.api.nvim_create_autocmd("TermOpen", {
 --         vim.cmd("tabdo wincmd =")
 --     end,
 -- })
+
+-- no auto continue comments on new line
+vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("no_auto_comment", {}),
+    callback = function()
+        vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+    end,
+})
+
+-- show cursorline only in active window enable
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+    group = vim.api.nvim_create_augroup("active_cursorline", { clear = true }),
+    callback = function()
+        vim.opt_local.cursorline = true
+    end,
+})
+
+-- show cursorline only in active window disable
+vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
+    group = "active_cursorline",
+    callback = function()
+        vim.opt_local.cursorline = false
+    end,
+})
 
 -- Create undo directory if it doesn't exist
 local undodir = vim.fn.expand("~/.vim/undodir")
@@ -385,14 +413,46 @@ vim.pack.add({
     { src = "https://github.com/windwp/nvim-autopairs" },
     -- { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
+    { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/saghen/blink.cmp",     version = vim.version.range('1.*'), },
+    -- { src = "https://github.com/saghen/blink.indent" },
     -- auto install
     -- { src = "https://github.com/mason-org/mason.nvim" },
     -- { src = "https://github.com/L3MON4D3/LuaSnip" },
     -- Advance Auto-save if you face issues with autoformat try to use this
     -- { src = "https://github.com/stevearc/conform.nvim" },
 })
+
 -- require("mason").setup()
-require('nvim-autopairs').setup()
+
+-- require("blink.indent").setup()
+require("blink.cmp").setup({
+    -- fuzzy = { implementation = 'prefer_rust_with_warning' },
+    fuzzy = { implementation = 'rust' },
+    -- signature = { enabled = true },
+    -- sources = {
+    --     default = { 'lsp', 'path', 'snippets', 'buffer' },
+    -- },
+    -- https://cmp.saghen.dev/configuration/keymap.html
+    keymap = {
+        preset = 'default',
+        -- ['<C-e>'] = { 'hide', 'fallback' },
+        -- ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
+        -- ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+        -- ['<C-y>'] = { 'select_and_accept', 'fallback' },
+        ['<Up>'] = {},
+        ['<Down>'] = {},
+        ['<Left>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<Right>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        -- ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+        -- ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+    },
+})
+
+require("nvim-autopairs").setup()
+require('oil').setup({
+    delete_to_trash = true,
+})
 
 local function pack_clean()
     local active_plugins = {}
@@ -424,12 +484,53 @@ vim.keymap.set("n", "<leader>pc", pack_clean)
 
 ---------------------------------------------------------------- LSP
 
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 vim.lsp.config('*', {
     capabilities = {
         general = {
             positionEncodings = { 'utf-16' } -- or 'utf-8', 'utf-32'
         }
     }
+})
+
+-- vim.lsp.config('ruff', {
+--     init_options = {
+--         settings = {
+--             -- Ruff language server settings go here
+--         }
+--     },
+--     -- I think no need for below
+--     -- capabilities = {
+--     --    textDocument = {
+--     --    hover = vim.NIL, -- Explicitly disable hover capability
+--     --   },
+-- })
+
+-- https://docs.basedpyright.com/#/settings
+vim.lsp.config('basedpyright', {
+    settings = {
+        basedpyright = {
+            -- Using Ruff's import organizer
+            disableOrganizeImports = true,
+            analysis = {
+                -- Ignore all files for analysis to exclusively use Ruff for linting
+                ignore = { '*' },
+                autoSearchPaths = true,
+                diagnosticMode = 'openFilesOnly',
+                useLibraryCodeForTypes = true,
+                -- typeCheckingMode = 'strict',
+            },
+        },
+    },
+})
+
+-- https://writewithharper.com/docs/integrations/neovim
+vim.lsp.config('harper_ls', {
+    settings = {
+        ["harper-ls"] = {
+            userDictPath = "~/dict.txt"
+        },
+    },
 })
 
 -- :LspInfo
@@ -440,6 +541,8 @@ vim.lsp.enable({
     "ruff",
     -- inside pyproject.toml
     "basedpyright",
+    -- brew install harper
+    "harper_ls",
 })
 
 --- Auto open completion. manual ctrl-x ctrl-o
@@ -466,20 +569,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- --
         -- -- In this case, we create a function that lets us more easily define mappings specific
         -- -- for LSP related items. It sets the mode, buffer and description for us each time.
-        -- local map = function(keys, func, desc, mode)
-        --     mode = mode or 'n'
-        --     vim.keymap.set(mode, keys, func, { buffer = args.buf, desc = 'LSP: ' .. desc })
-        -- end
+        local map = function(keys, func, desc, mode)
+            mode = mode or 'n'
+            vim.keymap.set(mode, keys, func, { buffer = args.buf, desc = 'LSP: ' .. desc })
+        end
+
+        -- https://neovim.io/doc/user/lsp.html#lsp-buf
+
         -- -- Rename the variable under your cursor.
         -- --  Most Language Servers support renaming across files, etc.
-        -- map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+        map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
         --
         -- -- Execute a code action, usually your cursor needs to be on top of an error
         -- -- or a suggestion from your LSP for this to activate.
-        -- map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+        map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
         --
         -- -- Find references for the word under your cursor.
         -- map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        map('grr', vim.lsp.buf.references, '[G]oto [R]eferences')
         --
         -- -- Jump to the implementation of the word under your cursor.
         -- --  Useful when your language has ways of declaring types without an actual implementation.
@@ -489,6 +596,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- --  This is where a variable was first declared, or where a function is defined, etc.
         -- --  To jump back, press <C-t>.
         -- map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+        map('grd', vim.lsp.buf.definition, '[G]oto [D]efinition')
         --
         -- -- WARN: This is not Goto Definition, this is Goto Declaration.
         -- --  For example, in C this would take you to the header.
@@ -519,18 +627,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-        if client:supports_method("textDocument/implementation") then
-            -- Create a keymap for vim.lsp.buf.implementation ...
-        end
+        -- if client:supports_method("textDocument/implementation") then
+        --     -- Create a keymap for vim.lsp.buf.implementation ...
+        -- end
 
+        -- if not using blink.cmp
         -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
-        if client:supports_method("textDocument/completion") then
-            -- Optional: trigger autocompletion on EVERY keypress. May be slow!
-            -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-            -- client.server_capabilities.completionProvider.triggerCharacters = chars
-
-            vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-        end
+        -- if client:supports_method("textDocument/completion") then
+        --     -- Optional: trigger autocompletion on EVERY keypress. May be slow!
+        --     -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+        --     -- client.server_capabilities.completionProvider.triggerCharacters = chars
+        --
+        --     vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+        -- end
 
         -- Auto-format ("lint") on save.
         -- Usually not needed if server supports "textDocument/willSaveWaitUntil".
@@ -550,6 +659,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- Signature help
+-- no need for below just use <C-s> to show it
 -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers["signature_help"], {
 -- 	border = "single",
 -- 	close_events = { "CursorMoved", "BufHidden" },
@@ -559,7 +669,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 ---------------------------------------------------------------- Treesitter
 
 require("tokyonight").setup({
-    -- optional configuration here
+    styles = {
+        comments = { italic = false }, -- Disable italics in comments
+    },
 })
 
 vim.cmd("colorscheme tokyonight")
@@ -691,8 +803,8 @@ require('mini.pick').setup({
 -- <Tab> toggles preview
 
 -- https://nvim-mini.org/mini.nvim/doc/mini-pick.html#minipick.builtin
--- vim.keymap.set({ "n" }, "<leader>sf", ":Pick files<CR>", { desc = "Picker file" })
-vim.keymap.set({ "n" }, "<leader>f", ":Pick files<CR>", { desc = "Picker file" })
+vim.keymap.set({ "n" }, "<leader>sf", ":Pick files<CR>", { desc = "Picker file" })
+-- vim.keymap.set({ "n" }, "<leader>f", ":Pick files<CR>", { desc = "Picker file" })
 -- vim.keymap.set({ "n" }, "<leader>g", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
 vim.keymap.set({ "n" }, "<leader>sg", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
 -- vim.keymap.set({ "n" }, "<leader>sb", ":Pick buffers<CR>", { desc = "Picker buffers" })
