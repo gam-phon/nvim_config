@@ -17,6 +17,10 @@
       "rev": "b58b2d65863f4ebad88b10a1ddd519e5380466e0",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
     },
+    "marks.nvim": {
+      "rev": "f353e8c",
+      "src": "https://github.com/chentoast/marks.nvim"
+    },
     "mini.pick": {
       "rev": "b435139",
       "src": "https://github.com/nvim-mini/mini.pick"

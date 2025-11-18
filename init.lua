@@ -396,7 +396,7 @@ end, { noremap = true, silent = true, desc = "Close floating terminal from termi
 --- rm -rf /Users/yaser/.local/share/nvim/site/pack/core/opt/*
 --- :lua vim.pack.update() --> review then do :w
 vim.pack.add({
-    -- { src = "https://github.com/chentoast/marks.nvim" },
+    { src = "https://github.com/chentoast/marks.nvim" },
     -- Theme
     { src = "https://github.com/folke/tokyonight.nvim" },
     -- :checkhealth nvim-treesitter
@@ -422,6 +422,7 @@ vim.pack.add({
     -- { src = "https://github.com/stevearc/conform.nvim" },
 })
 
+
 ---------------------------------------------------------------- Copilot
 -- vim.g.copilot_enabled = false
 vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
@@ -433,6 +434,27 @@ vim.keymap.set('i', '<C-/>', '<Plug>(copilot-dismiss)')
 vim.g.copilot_no_tab_map = true
 ----------------------------------------------------------------
 
+---------------------------------------------------------------- Marks
+require("marks").setup()
+-- mx              Set mark x
+-- m,              Set the next available alphabetical (lowercase) mark
+-- m;              Toggle the next available mark at the current line
+-- dmx             Delete mark x
+-- dm-             Delete all marks on the current line
+-- dm<space>       Delete all marks in the current buffer
+-- m]              Move to next mark
+-- m[              Move to previous mark
+-- m:              Preview mark. This will prompt you for a specific mark to
+--                 preview; press <cr> to preview the next mark.
+--
+-- m[0-9]          Add a bookmark from bookmark group[0-9].
+-- dm[0-9]         Delete all bookmarks from bookmark group[0-9].
+-- m}              Move to the next bookmark having the same type as the bookmark under
+--                 the cursor. Works across buffers.
+-- m{              Move to the previous bookmark having the same type as the bookmark under
+--                 the cursor. Works across buffers.
+-- dm=             Delete the bookmark under the cursor.
+----------------------------------------------------------------
 
 -- https://github.com/lewis6991/gitsigns.nvim
 require("gitsigns").setup({
