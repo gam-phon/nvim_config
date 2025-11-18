@@ -415,17 +415,15 @@ vim.pack.add({
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/saghen/blink.cmp",     version = vim.version.range('1.*'), },
-    -- { src = "https://github.com/saghen/blink.indent" },
-    -- auto install
-    -- { src = "https://github.com/mason-org/mason.nvim" },
-    -- { src = "https://github.com/L3MON4D3/LuaSnip" },
+    { src = "https://github.com/MagicDuck/grug-far.nvim" },
     -- Advance Auto-save if you face issues with autoformat try to use this
     -- { src = "https://github.com/stevearc/conform.nvim" },
 })
 
--- require("mason").setup()
 
--- require("blink.indent").setup()
+require("grug-far").setup()
+vim.keymap.set({ "n" }, "<leader>rr", ":GrugFar<CR>", { desc = "Find are Replace" })
+
 require("blink.cmp").setup({
     -- fuzzy = { implementation = 'prefer_rust_with_warning' },
     fuzzy = { implementation = 'rust' },
