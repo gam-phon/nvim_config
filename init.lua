@@ -414,12 +414,99 @@ vim.pack.add({
     -- { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/stevearc/oil.nvim" },
-    { src = "https://github.com/saghen/blink.cmp",     version = vim.version.range('1.*'), },
+    { src = "https://github.com/saghen/blink.cmp",       version = vim.version.range('1.*'), },
     { src = "https://github.com/MagicDuck/grug-far.nvim" },
+    { src = "https://github.com/lewis6991/gitsigns.nvim" },
+    { src = "https://github.com/github/copilot.vim" },
     -- Advance Auto-save if you face issues with autoformat try to use this
     -- { src = "https://github.com/stevearc/conform.nvim" },
 })
 
+---------------------------------------------------------------- Copilot
+-- vim.g.copilot_enabled = false
+vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
+    expr = true,
+    replace_keycodes = false,
+})
+vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-word)')
+vim.keymap.set('i', '<C-/>', '<Plug>(copilot-dismiss)')
+vim.g.copilot_no_tab_map = true
+----------------------------------------------------------------
+
+
+-- https://github.com/lewis6991/gitsigns.nvim
+require("gitsigns").setup({
+    signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+    },
+    on_attach = function(bufnr)
+        local gitsigns = require('gitsigns')
+
+        local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+            if vim.wo.diff then
+                vim.cmd.normal({ ']c', bang = true })
+            else
+                gitsigns.nav_hunk('next')
+            end
+        end)
+
+        map('n', '[c', function()
+            if vim.wo.diff then
+                vim.cmd.normal({ '[c', bang = true })
+            else
+                gitsigns.nav_hunk('prev')
+            end
+        end)
+
+        -- Actions
+        map('n', '<leader>hs', gitsigns.stage_hunk)
+        map('n', '<leader>hr', gitsigns.reset_hunk)
+
+        map('v', '<leader>hs', function()
+            gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+        end)
+
+        map('v', '<leader>hr', function()
+            gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+        end)
+
+        map('n', '<leader>hS', gitsigns.stage_buffer)
+        map('n', '<leader>hR', gitsigns.reset_buffer)
+        map('n', '<leader>hp', gitsigns.preview_hunk)
+        map('n', '<leader>hi', gitsigns.preview_hunk_inline)
+
+        map('n', '<leader>hb', function()
+            gitsigns.blame_line({ full = true })
+        end)
+
+        map('n', '<leader>hd', gitsigns.diffthis)
+
+        map('n', '<leader>hD', function()
+            gitsigns.diffthis('~')
+        end)
+
+        map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
+        map('n', '<leader>hq', gitsigns.setqflist)
+
+        -- Toggles
+        map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+        map('n', '<leader>tw', gitsigns.toggle_word_diff)
+
+        -- Text object
+        map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
+    end
+})
 
 require("grug-far").setup()
 vim.keymap.set({ "n" }, "<leader>rr", ":GrugFar<CR>", { desc = "Find are Replace" })
