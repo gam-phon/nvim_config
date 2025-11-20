@@ -1,7 +1,6 @@
 Minimal neovim configuration
 
 
-
 jj
 ```
 jj describe
