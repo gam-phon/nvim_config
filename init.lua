@@ -414,8 +414,8 @@ vim.pack.add({
     -- { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/stevearc/oil.nvim" },
-    { src = "https://github.com/saghen/blink.cmp",       version = vim.version.range('1.*'), },
-    { src = "https://github.com/MagicDuck/grug-far.nvim" },
+    { src = "https://github.com/saghen/blink.cmp",     version = vim.version.range('1.*'), },
+    -- { src = "https://github.com/MagicDuck/grug-far.nvim" },
     -- { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/github/copilot.vim" },
     -- Advance Auto-save if you face issues with autoformat try to use this
@@ -534,8 +534,8 @@ require("marks").setup({
 --     end
 -- })
 
-require("grug-far").setup()
-vim.keymap.set({ "n" }, "<leader>rr", ":GrugFar<CR>", { desc = "Find are Replace" })
+-- require("grug-far").setup()
+-- vim.keymap.set({ "n" }, "<leader>rr", ":GrugFar<CR>", { desc = "Find are Replace" })
 
 require("blink.cmp").setup({
     -- fuzzy = { implementation = 'prefer_rust_with_warning' },
@@ -926,6 +926,8 @@ require('fzf-lua').setup({
     -- <C-x> remove item from the list
     -- <M-a> Add all items to quickfix list
     -- <M-q> send all items to quickfix list
+    -- :cdo s/word/replace
+    -- :cdo s/word/replace/gc
     -- ["<S-down>"]    = "preview-page-down",
     -- ["<S-up>"]      = "preview-page-up",
     -- ["<M-S-down>"]  = "preview-down",
