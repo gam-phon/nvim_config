@@ -13,10 +13,6 @@
       "rev": "123cc546c4618f5fd90d5db2da5643e76979162c",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
-    "gitsigns.nvim": {
-      "rev": "cdafc32",
-      "src": "https://github.com/lewis6991/gitsigns.nvim"
-    },
     "grug-far.nvim": {
       "rev": "b58b2d65863f4ebad88b10a1ddd519e5380466e0",
       "src": "https://github.com/MagicDuck/grug-far.nvim"

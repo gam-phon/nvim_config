@@ -80,10 +80,10 @@ vim.o.autochdir = false -- Don't auto change directory
 -- vim.o.path:append("**")               -- include subdirectories in search
 -- vim.o.selection = "exclusive"         -- Selection behavior
 -- vim.o.mouse = "a"                     -- Enable mouse support
--- vim.opt.clipboard:append("unnamedplus") -- Use system clipboard
+vim.opt.clipboard:append("unnamedplus") -- Use system clipboard
 -- vim.o.modifiable = true               -- Allow buffer modifications
-vim.o.encoding = "UTF-8"   -- Set encoding
-vim.o.inccommand = "split" -- Preview substitutions live, as you type!
+vim.o.encoding = "UTF-8"                -- Set encoding
+vim.o.inccommand = "split"              -- Preview substitutions live, as you type!
 
 -- Folding settings
 -- vim.o.foldmethod = "expr"                        -- Use expression for folding
@@ -122,12 +122,12 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 -- vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
 
 -- Better window navigation
-vim.keymap.set("n", "<A-h>", "<C-w>h", { desc = "Move to left window" })
-vim.keymap.set("n", "<A-j>", "<C-w>j", { desc = "Move to bottom window" })
-vim.keymap.set("n", "<A-k>", "<C-w>k", { desc = "Move to top window" })
-vim.keymap.set("n", "<A-l>", "<C-w>l", { desc = "Move to right window" })
-vim.keymap.set("n", "<A-q>", ":q<CR>", { desc = "Split window vertically" })
-vim.keymap.set("n", "<A-v>", ":botright 190vsplit<CR>", { desc = "Split window vertically" })
+-- vim.keymap.set("n", "<A-h>", "<C-w>h", { desc = "Move to left window" })
+-- vim.keymap.set("n", "<A-j>", "<C-w>j", { desc = "Move to bottom window" })
+-- vim.keymap.set("n", "<A-k>", "<C-w>k", { desc = "Move to top window" })
+-- vim.keymap.set("n", "<A-l>", "<C-w>l", { desc = "Move to right window" })
+-- vim.keymap.set("n", "<A-q>", ":q<CR>", { desc = "Split window vertically" })
+vim.keymap.set("n", "<A-v>", ":botright 195vsplit<CR>", { desc = "Split window vertically" })
 
 -- Splitting & Resizing
 -- <C-w>v -> split window vertically
@@ -162,21 +162,21 @@ vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open file explorer" })
 -- vim.keymap.set("n", "<leader>e", ":Explore<CR>", { desc = "Open file explorer" })
 -- vim.keymap.set("n", "<leader>ff", ":find ", { desc = "Find file" })
 
---- learning
+--- Learning
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set({ "n", "i", "v" }, "<left>", "<Nop>", { silent = true })
+-- vim.keymap.set({ "n", "i", "v" }, "<left>", "<Nop>", { silent = true })
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set({ "n", "i", "v" }, "<right>", "<Nop>", { silent = true })
+-- vim.keymap.set({ "n", "i", "v" }, "<right>", "<Nop>", { silent = true })
 -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set({ "n", "i", "v" }, "<up>", "<Nop>", { silent = true })
+-- vim.keymap.set({ "n", "i", "v" }, "<up>", "<Nop>", { silent = true })
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
-vim.keymap.set({ "n", "i", "v" }, "<down>", "<Nop>", { silent = true })
+-- vim.keymap.set({ "n", "i", "v" }, "<down>", "<Nop>", { silent = true })
 -- TIP: Disable page up/down
 -- vim.keymap.set('n', '<PageUp>', '<cmd>echo "Use Ctrl b to move!!"<CR>')
-vim.keymap.set({ "n", "i", "v" }, "<PageUp>", "<Nop>", { silent = true })
+-- vim.keymap.set({ "n", "i", "v" }, "<PageUp>", "<Nop>", { silent = true })
 -- vim.keymap.set('n', '<PageDown>', '<cmd>echo "Use Ctrl f to move!!"<CR>')
-vim.keymap.set({ "n", "i", "v" }, "<PageDown>", "<Nop>", { silent = true })
+-- vim.keymap.set({ "n", "i", "v" }, "<PageDown>", "<Nop>", { silent = true })
 
 -- ============================================================================
 -- USEFUL FUNCTIONS
@@ -372,12 +372,12 @@ local function FloatingTerminal()
 end
 
 -- Function to explicitly close the terminal
-local function CloseFloatingTerminal()
-    if terminal_state.is_open and vim.api.nvim_win_is_valid(terminal_state.win) then
-        vim.api.nvim_win_close(terminal_state.win, false)
-        terminal_state.is_open = false
-    end
-end
+-- local function CloseFloatingTerminal()
+--     if terminal_state.is_open and vim.api.nvim_win_is_valid(terminal_state.win) then
+--         vim.api.nvim_win_close(terminal_state.win, false)
+--         terminal_state.is_open = false
+--     end
+-- end
 
 -- Key mappings
 vim.keymap.set("n", "<A-i>", FloatingTerminal, { noremap = true, silent = true, desc = "Toggle floating terminal" })
@@ -416,7 +416,7 @@ vim.pack.add({
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/saghen/blink.cmp",       version = vim.version.range('1.*'), },
     { src = "https://github.com/MagicDuck/grug-far.nvim" },
-    { src = "https://github.com/lewis6991/gitsigns.nvim" },
+    -- { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/github/copilot.vim" },
     -- Advance Auto-save if you face issues with autoformat try to use this
     -- { src = "https://github.com/stevearc/conform.nvim" },
@@ -435,7 +435,11 @@ vim.g.copilot_no_tab_map = true
 ----------------------------------------------------------------
 
 ---------------------------------------------------------------- Marks
-require("marks").setup()
+require("marks").setup({
+    builtin_marks = { ".", "<", ">", "^" },
+    refresh_interval = 250,
+    sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
+})
 -- mx              Set mark x
 -- m,              Set the next available alphabetical (lowercase) mark
 -- m;              Toggle the next available mark at the current line
@@ -457,78 +461,78 @@ require("marks").setup()
 ----------------------------------------------------------------
 
 -- https://github.com/lewis6991/gitsigns.nvim
-require("gitsigns").setup({
-    signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-    },
-    on_attach = function(bufnr)
-        local gitsigns = require('gitsigns')
-
-        local function map(mode, l, r, opts)
-            opts = opts or {}
-            opts.buffer = bufnr
-            vim.keymap.set(mode, l, r, opts)
-        end
-
-        -- Navigation
-        map('n', ']c', function()
-            if vim.wo.diff then
-                vim.cmd.normal({ ']c', bang = true })
-            else
-                gitsigns.nav_hunk('next')
-            end
-        end)
-
-        map('n', '[c', function()
-            if vim.wo.diff then
-                vim.cmd.normal({ '[c', bang = true })
-            else
-                gitsigns.nav_hunk('prev')
-            end
-        end)
-
-        -- Actions
-        map('n', '<leader>hs', gitsigns.stage_hunk)
-        map('n', '<leader>hr', gitsigns.reset_hunk)
-
-        map('v', '<leader>hs', function()
-            gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-        end)
-
-        map('v', '<leader>hr', function()
-            gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-        end)
-
-        map('n', '<leader>hS', gitsigns.stage_buffer)
-        map('n', '<leader>hR', gitsigns.reset_buffer)
-        map('n', '<leader>hp', gitsigns.preview_hunk)
-        map('n', '<leader>hi', gitsigns.preview_hunk_inline)
-
-        map('n', '<leader>hb', function()
-            gitsigns.blame_line({ full = true })
-        end)
-
-        map('n', '<leader>hd', gitsigns.diffthis)
-
-        map('n', '<leader>hD', function()
-            gitsigns.diffthis('~')
-        end)
-
-        map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
-        map('n', '<leader>hq', gitsigns.setqflist)
-
-        -- Toggles
-        map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
-        map('n', '<leader>tw', gitsigns.toggle_word_diff)
-
-        -- Text object
-        map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
-    end
-})
+-- require("gitsigns").setup({
+--     signs = {
+--         add = { text = '+' },
+--         change = { text = '~' },
+--         delete = { text = '_' },
+--         topdelete = { text = '‾' },
+--         changedelete = { text = '~' },
+--     },
+--     on_attach = function(bufnr)
+--         local gitsigns = require('gitsigns')
+--
+--         local function map(mode, l, r, opts)
+--             opts = opts or {}
+--             opts.buffer = bufnr
+--             vim.keymap.set(mode, l, r, opts)
+--         end
+--
+--         -- Navigation
+--         map('n', ']c', function()
+--             if vim.wo.diff then
+--                 vim.cmd.normal({ ']c', bang = true })
+--             else
+--                 gitsigns.nav_hunk('next')
+--             end
+--         end)
+--
+--         map('n', '[c', function()
+--             if vim.wo.diff then
+--                 vim.cmd.normal({ '[c', bang = true })
+--             else
+--                 gitsigns.nav_hunk('prev')
+--             end
+--         end)
+--
+--         -- Actions
+--         map('n', '<leader>hs', gitsigns.stage_hunk)
+--         map('n', '<leader>hr', gitsigns.reset_hunk)
+--
+--         map('v', '<leader>hs', function()
+--             gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+--         end)
+--
+--         map('v', '<leader>hr', function()
+--             gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+--         end)
+--
+--         map('n', '<leader>hS', gitsigns.stage_buffer)
+--         map('n', '<leader>hR', gitsigns.reset_buffer)
+--         map('n', '<leader>hp', gitsigns.preview_hunk)
+--         map('n', '<leader>hi', gitsigns.preview_hunk_inline)
+--
+--         map('n', '<leader>hb', function()
+--             gitsigns.blame_line({ full = true })
+--         end)
+--
+--         map('n', '<leader>hd', gitsigns.diffthis)
+--
+--         map('n', '<leader>hD', function()
+--             gitsigns.diffthis('~')
+--         end)
+--
+--         map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
+--         map('n', '<leader>hq', gitsigns.setqflist)
+--
+--         -- Toggles
+--         map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+--         map('n', '<leader>tw', gitsigns.toggle_word_diff)
+--
+--         -- Text object
+--         map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
+--     end
+-- })
 
 require("grug-far").setup()
 vim.keymap.set({ "n" }, "<leader>rr", ":GrugFar<CR>", { desc = "Find are Replace" })
@@ -600,6 +604,27 @@ vim.lsp.config('*', {
     }
 })
 
+-- Define LSP diagnostic signs with low priority
+vim.diagnostic.config({
+    signs = {
+        text = {
+            -- [vim.diagnostic.severity.ERROR] = "E",
+            [vim.diagnostic.severity.ERROR] = "󰅚",
+            -- [vim.diagnostic.severity.WARN] = "W",
+            [vim.diagnostic.severity.WARN] = "󰀪",
+            -- [vim.diagnostic.severity.INFO] = "I",
+            [vim.diagnostic.severity.INFO] = "󰋽",
+            -- [vim.diagnostic.severity.HINT] = "H",
+            [vim.diagnostic.severity.HINT] = "󰌶",
+        },
+        priority = 5     -- Lower number = lower priority (default is 10)
+    },
+    severity_sort = true -- Enable to automatically prioritize higher severities
+})
+
+
+
+
 -- vim.lsp.config('ruff', {
 --     init_options = {
 --         settings = {
@@ -612,6 +637,17 @@ vim.lsp.config('*', {
 --     --    hover = vim.NIL, -- Explicitly disable hover capability
 --     --   },
 -- })
+
+-- solve vim warning for lua_ls
+vim.lsp.config('lua_ls', {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            },
+        }
+    }
+})
 
 -- https://docs.basedpyright.com/#/settings
 vim.lsp.config('basedpyright', {
@@ -652,19 +688,6 @@ vim.lsp.enable({
     "harper_ls",
 })
 
---- Auto open completion. manual ctrl-x ctrl-o
--- vim.api.nvim_create_autocmd('LspAttach', {
--- 	group = vim.api.nvim_create_augroup('my.lsp', {}),
--- 	callback = function(args)
--- 		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
--- 		if client:supports_method('textDocument/completion') then
--- 			-- Optional: trigger autocompletion on EVERY keypress. May be slow!
--- 			local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
--- 			client.server_capabilities.completionProvider.triggerCharacters = chars
--- 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
--- 		end
--- 	end,
--- })
 
 
 -- :h LspAttach
@@ -682,6 +705,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         -- https://neovim.io/doc/user/lsp.html#lsp-buf
+        -- https://neovim.io/doc/user/lsp.html#lsp-defaults
+
+        -- in insert mode: <C-S> signature
+        -- open diagnostic window: <C-wd>
+        map('gd', require("fzf-lua").diagnostics_document, '[G]oto [D]iagnostics')
 
         -- -- Rename the variable under your cursor.
         -- --  Most Language Servers support renaming across files, etc.
@@ -689,21 +717,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
         --
         -- -- Execute a code action, usually your cursor needs to be on top of an error
         -- -- or a suggestion from your LSP for this to activate.
-        map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+        -- map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+        map('gra', require("fzf-lua").lsp_code_actions, '[G]oto Code [A]ction', { 'n', 'x' })
         --
         -- -- Find references for the word under your cursor.
-        -- map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-        map('grr', vim.lsp.buf.references, '[G]oto [R]eferences')
+        -- map('grr', vim.lsp.buf.references, '[G]oto [R]eferences')
+        map('grr', require("fzf-lua").lsp_references, '[G]oto [R]eferences')
         --
         -- -- Jump to the implementation of the word under your cursor.
         -- --  Useful when your language has ways of declaring types without an actual implementation.
-        -- map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+        -- map('gri', require("fzf-lua").lsp_implementations, '[G]oto [I]mplementation')
         --
         -- -- Jump to the definition of the word under your cursor.
         -- --  This is where a variable was first declared, or where a function is defined, etc.
         -- --  To jump back, press <C-t>.
-        -- map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-        map('grd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+        -- map('grd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+        map('grd', require("fzf-lua").lsp_definitions, '[G]oto [D]efinition')
         --
         -- -- WARN: This is not Goto Definition, this is Goto Declaration.
         -- --  For example, in C this would take you to the header.
@@ -712,20 +741,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- -- Jump to the type of the word under your cursor.
         -- --  Useful when you're not sure what type a variable is and you want to see
         -- --  the definition of its *type*, not where it was *defined*.
-        -- map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+        -- map('grt', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
         --
         -- -- Fuzzy find all the symbols in your current document.
         -- --  Symbols are things like variables, functions, types, etc.
         -- -- map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
         -- map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
+        map('gO', require('fzf-lua').lsp_document_symbols, 'Open Document Symbols')
         --
         -- -- Fuzzy find all the symbols in your current workspace.
         -- --  Similar to document symbols, except searches over your entire project.
         -- map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
-        --
-        -- -- Open Code diagnostic in float window. your cursor needs to be on top of an error
-        -- -- Alternatively a hotkey were added in nvim 0.10 <C-W>d to do this functionaly by default
-        -- -- map('<leader>cd', vim.diagnostic.open_float, '[C]ode [D]iagnostic')
         --
         -- -- Jump to the type of the word under your cursor.
         -- --  Useful when you're not sure what type a variable is and you want to see
@@ -739,6 +765,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- end
 
         -- if not using blink.cmp
+        --- Auto open completion. manual ctrl-x ctrl-o
         -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
         -- if client:supports_method("textDocument/completion") then
         --     -- Optional: trigger autocompletion on EVERY keypress. May be slow!
@@ -896,67 +923,36 @@ vim.api.nvim_create_autocmd("PackChanged", {
 -- fzf-lua
 
 require('fzf-lua').setup({
-
+    -- <C-x> remove item from the list
+    -- <M-q> send all items to quickfix list
+    -- ["<S-down>"]    = "preview-page-down",
+    -- ["<S-up>"]      = "preview-page-up",
+    -- ["<M-S-down>"]  = "preview-down",
+    -- ["<M-S-up>"]    = "preview-up",
+    marks = {
+        -- marks = "",
+        marks = "%a", -- filter vim marks with a lua pattern
+        -- for example if you want to only show user defined marks
+        -- you would set this option as %a this would match characters from [A-Za-z]
+        -- or if you want to show only numbers you would set the pattern to %d (0-9).
+    },
 })
-vim.keymap.set({ "n" }, "<leader>sf", require("fzf-lua").files, { desc = "Picker file" })
+vim.keymap.set({ "n" }, "<leader>sb", require("fzf-lua").buffers, { desc = "Picker file" })
+vim.keymap.set({ "n" }, "<leader>sf", require("fzf-lua").files, { desc = "Picker files" })
+vim.keymap.set({ "n" }, "<leader>so", require("fzf-lua").oldfiles, { desc = "Picker oldfiles" })
 vim.keymap.set({ "n" }, "<leader>sg", require("fzf-lua").live_grep, { desc = "Picker file" })
+vim.keymap.set({ "n" }, "<leader>sc", require("fzf-lua").lgrep_curbuf, { desc = "Picker file" })
+vim.keymap.set({ "n" }, "<leader>st", require("fzf-lua").git_status, { desc = "Picker file" })
 -- live grep current buffer -> lgrep_curbuf
 vim.keymap.set({ "n" }, "<leader>sq", require("fzf-lua").quickfix, { desc = "Picker file" })
 vim.keymap.set({ "n" }, "<leader>sm", require("fzf-lua").marks, { desc = "Picker file" })
-vim.keymap.set({ "n" }, "<leader>s?", require("fzf-lua").builtin, { desc ="Picker file" })
+vim.keymap.set({ "n" }, "<leader>s?", require("fzf-lua").builtin, { desc = "Picker file" })
 -- vim.keymap.set({ "n" }, "<leader>sf", ":Pick files<CR>", { desc = "Picker file" })
 
 -- lsp
 -- vim.keymap.set({ "n" }, "<leader>sd", require("fzf-lua").diagnostics_document, { desc = "Picker file" })
--- lsp_definitions
--- references
--- implementation
--- code action
--- symbols
-
---
--- -- https://nvim-mini.org/mini.nvim/doc/mini-pick.html#minipick.builtin
--- vim.keymap.set({ "n" }, "<leader>sf", ":Pick files<CR>", { desc = "Picker file" })
--- -- vim.keymap.set({ "n" }, "<leader>f", ":Pick files<CR>", { desc = "Picker file" })
--- -- vim.keymap.set({ "n" }, "<leader>g", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
--- vim.keymap.set({ "n" }, "<leader>sg", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
--- -- vim.keymap.set({ "n" }, "<leader>sb", ":Pick buffers<CR>", { desc = "Picker buffers" })
--- vim.keymap.set({ "n" }, "<leader><leader>", ":Pick buffers<CR>", { desc = "Picker buffers" })
---
--- vim.keymap.set({ "n" }, "<leader>si", ":Pick grep pattern='<cword>'<CR>", { desc = "Picker string grep" })
--- vim.keymap.set({ "n" }, "<leader>sh", ":Pick help<CR>", { desc = "Picker help" })
-
-
--- telescope
--- local telescope = require("telescope")
---
--- telescope.setup({})
---
--- local builtin = require("telescope.builtin")
---
--- vim.keymap.set({ "n" }, "<leader>f", builtin.find_files, { desc = "Telescope live grep" })
--- vim.keymap.set({ "n" }, "<leader>g", builtin.live_grep)
---
--- vim.keymap.set({ "n" }, "<leader>sg", function()
---     builtin.find_files({ no_ignore = true })
--- end)
--- vim.keymap.set({ "n" }, "<leader>sb", builtin.buffers)
--- vim.keymap.set({ "n" }, "<leader>si", builtin.grep_string)
--- vim.keymap.set({ "n" }, "<leader>so", builtin.oldfiles)
--- vim.keymap.set({ "n" }, "<leader>sh", builtin.help_tags)
--- vim.keymap.set({ "n" }, "<leader>sm", builtin.man_pages)
--- vim.keymap.set({ "n" }, "<leader>sr", builtin.lsp_references)
--- vim.keymap.set({ "n" }, "<leader>sd", builtin.diagnostics)
--- vim.keymap.set({ "n" }, "<leader>si", builtin.lsp_implementations)
--- vim.keymap.set({ "n" }, "<leader>sT", builtin.lsp_type_definitions)
--- vim.keymap.set({ "n" }, "<leader>ss", builtin.current_buffer_fuzzy_find)
--- vim.keymap.set({ "n" }, "<leader>st", builtin.builtin)
--- vim.keymap.set({ "n" }, "<leader>sc", builtin.git_bcommits)
--- vim.keymap.set({ "n" }, "<leader>sk", builtin.keymaps)
-
 
 ----------------------------------------------------------------
-
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
