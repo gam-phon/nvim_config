@@ -924,6 +924,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 
 require('fzf-lua').setup({
     -- <C-x> remove item from the list
+    -- <M-a> Add all items to quickfix list
     -- <M-q> send all items to quickfix list
     -- ["<S-down>"]    = "preview-page-down",
     -- ["<S-up>"]      = "preview-page-up",
