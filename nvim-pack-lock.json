@@ -9,6 +9,10 @@
       "rev": "da369d9",
       "src": "https://github.com/github/copilot.vim"
     },
+    "fzf-lua": {
+      "rev": "123cc546c4618f5fd90d5db2da5643e76979162c",
+      "src": "https://github.com/ibhagwan/fzf-lua"
+    },
     "gitsigns.nvim": {
       "rev": "cdafc32",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
@@ -20,10 +24,6 @@
     "marks.nvim": {
       "rev": "f353e8c",
       "src": "https://github.com/chentoast/marks.nvim"
-    },
-    "mini.pick": {
-      "rev": "b435139",
-      "src": "https://github.com/nvim-mini/mini.pick"
     },
     "nvim-autopairs": {
       "rev": "7a2c97c",

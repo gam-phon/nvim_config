@@ -409,7 +409,7 @@ vim.pack.add({
     -- Required by telescope
     -- { src = "https://github.com/nvim-lua/plenary.nvim" },
     -- { src = "https://github.com/nvim-telescope/telescope.nvim", version = "v0.1.9" },
-    { src = "https://github.com/nvim-mini/mini.pick" },
+    { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/windwp/nvim-autopairs" },
     -- { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
@@ -893,32 +893,38 @@ vim.api.nvim_create_autocmd("PackChanged", {
 
 ---------------------------------------------------------------- Picker
 
--- mini.pick
-require('mini.pick').setup({
-    mappings = {
-        -- choose = '<CR>',
-        choose         = '<C-y>',
-        -- choose_marked = '<M-CR>',
-        choose_marked  = '<M-y>',
-        mark           = '<C-x>',
-        mark_all       = '<C-a>',
-        refine_marked  = '<M-Space>',
-        toggle_preview = '<Tab>',
-    },
+-- fzf-lua
+
+require('fzf-lua').setup({
+
 })
--- https://github.com/nvim-mini/mini.pick
--- <Tab> toggles preview
+vim.keymap.set({ "n" }, "<leader>sf", require("fzf-lua").files, { desc = "Picker file" })
+vim.keymap.set({ "n" }, "<leader>sg", require("fzf-lua").live_grep, { desc = "Picker file" })
+-- live grep current buffer -> lgrep_curbuf
+vim.keymap.set({ "n" }, "<leader>sq", require("fzf-lua").quickfix, { desc = "Picker file" })
+vim.keymap.set({ "n" }, "<leader>sm", require("fzf-lua").marks, { desc = "Picker file" })
+vim.keymap.set({ "n" }, "<leader>s?", require("fzf-lua").builtin, { desc ="Picker file" })
+-- vim.keymap.set({ "n" }, "<leader>sf", ":Pick files<CR>", { desc = "Picker file" })
 
--- https://nvim-mini.org/mini.nvim/doc/mini-pick.html#minipick.builtin
-vim.keymap.set({ "n" }, "<leader>sf", ":Pick files<CR>", { desc = "Picker file" })
--- vim.keymap.set({ "n" }, "<leader>f", ":Pick files<CR>", { desc = "Picker file" })
--- vim.keymap.set({ "n" }, "<leader>g", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
-vim.keymap.set({ "n" }, "<leader>sg", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
--- vim.keymap.set({ "n" }, "<leader>sb", ":Pick buffers<CR>", { desc = "Picker buffers" })
-vim.keymap.set({ "n" }, "<leader><leader>", ":Pick buffers<CR>", { desc = "Picker buffers" })
+-- lsp
+-- vim.keymap.set({ "n" }, "<leader>sd", require("fzf-lua").diagnostics_document, { desc = "Picker file" })
+-- lsp_definitions
+-- references
+-- implementation
+-- code action
+-- symbols
 
-vim.keymap.set({ "n" }, "<leader>si", ":Pick grep pattern='<cword>'<CR>", { desc = "Picker string grep" })
-vim.keymap.set({ "n" }, "<leader>sh", ":Pick help<CR>", { desc = "Picker help" })
+--
+-- -- https://nvim-mini.org/mini.nvim/doc/mini-pick.html#minipick.builtin
+-- vim.keymap.set({ "n" }, "<leader>sf", ":Pick files<CR>", { desc = "Picker file" })
+-- -- vim.keymap.set({ "n" }, "<leader>f", ":Pick files<CR>", { desc = "Picker file" })
+-- -- vim.keymap.set({ "n" }, "<leader>g", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
+-- vim.keymap.set({ "n" }, "<leader>sg", ":Pick grep_live<CR>", { desc = "Telescope live grep" })
+-- -- vim.keymap.set({ "n" }, "<leader>sb", ":Pick buffers<CR>", { desc = "Picker buffers" })
+-- vim.keymap.set({ "n" }, "<leader><leader>", ":Pick buffers<CR>", { desc = "Picker buffers" })
+--
+-- vim.keymap.set({ "n" }, "<leader>si", ":Pick grep pattern='<cword>'<CR>", { desc = "Picker string grep" })
+-- vim.keymap.set({ "n" }, "<leader>sh", ":Pick help<CR>", { desc = "Picker help" })
 
 
 -- telescope
