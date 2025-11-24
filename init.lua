@@ -442,12 +442,15 @@ vim.keymap.set("n", "<leader>pc", pack_clean)
 
 ---------------------------------------------------------------- Copilot
 -- vim.g.copilot_enabled = false
-vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
+-- vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
+vim.keymap.set('i', '<Right>', 'copilot#Accept("\\<CR>")', {
     expr = true,
     replace_keycodes = false,
 })
-vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-word)')
-vim.keymap.set('i', '<C-/>', '<Plug>(copilot-dismiss)')
+-- vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-word)')
+vim.keymap.set('i', '<Left>', '<Plug>(copilot-accept-word)')
+-- vim.keymap.set('i', '<C-/>', '<Plug>(copilot-dismiss)')
+vim.keymap.set('i', '<Down>', '<Plug>(copilot-dismiss)')
 vim.g.copilot_no_tab_map = true
 
 ---------------------------------------------------------------- Marks
@@ -559,10 +562,11 @@ require("blink.cmp").setup({
         -- ['<C-y>'] = { 'select_and_accept', 'fallback' },
         ['<Up>'] = {},
         ['<Down>'] = {},
-        ['<Left>'] = { 'show', 'show_documentation', 'hide_documentation' },
-        ['<Right>'] = { 'show', 'show_documentation', 'hide_documentation' },
-        -- ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-        -- ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+        -- ['<Left>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        -- ['<Right>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<TAB>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<S-up>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<S-down>'] = { 'scroll_documentation_down', 'fallback' },
     },
 })
 
