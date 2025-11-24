@@ -117,9 +117,9 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 -- Better paste behavior
--- vim.keymap.set("x", "<leader>p", '"_dP', { desc = "Paste without yanking" })
+vim.keymap.set("x", "<leader>p", '"_dP', { desc = "Paste without yanking" })
 -- Delete without yanking
--- vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
 
 -- Better window navigation
 -- vim.keymap.set("n", "<A-h>", "<C-w>h", { desc = "Move to left window" })
@@ -157,10 +157,6 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- Better J behavior
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
--- Quick file navigation
-vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open file explorer" })
--- vim.keymap.set("n", "<leader>e", ":Explore<CR>", { desc = "Open file explorer" })
--- vim.keymap.set("n", "<leader>ff", ":find ", { desc = "Find file" })
 
 --- Learning
 -- TIP: Disable arrow keys in normal mode
@@ -393,8 +389,6 @@ end, { noremap = true, silent = true, desc = "Close floating terminal from termi
 ----------------------------------------------------------------
 
 -- https://neovim.io/doc/user/pack.html
---- rm -rf /Users/yaser/.local/share/nvim/site/pack/core/opt/*
---- :lua vim.pack.update() --> review then do :w
 vim.pack.add({
     { src = "https://github.com/chentoast/marks.nvim" },
     -- Theme
@@ -406,22 +400,45 @@ vim.pack.add({
         src = "https://github.com/nvim-treesitter/nvim-treesitter",
         version = "main",
     },
-    -- Required by telescope
-    -- { src = "https://github.com/nvim-lua/plenary.nvim" },
-    -- { src = "https://github.com/nvim-telescope/telescope.nvim", version = "v0.1.9" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/windwp/nvim-autopairs" },
-    -- { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/saghen/blink.cmp",     version = vim.version.range('1.*'), },
     -- { src = "https://github.com/MagicDuck/grug-far.nvim" },
     -- { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/github/copilot.vim" },
-    -- Advance Auto-save if you face issues with autoformat try to use this
-    -- { src = "https://github.com/stevearc/conform.nvim" },
 })
 
+local function pack_clean()
+    local active_plugins = {}
+    local unused_plugins = {}
+
+    for _, plugin in ipairs(vim.pack.get()) do
+        active_plugins[plugin.spec.name] = plugin.active
+    end
+
+    for _, plugin in ipairs(vim.pack.get()) do
+        if not active_plugins[plugin.spec.name] then
+            table.insert(unused_plugins, plugin.spec.name)
+        end
+    end
+
+    if #unused_plugins == 0 then
+        print("No unused plugins.")
+        return
+    end
+
+    local choice = vim.fn.confirm("Remove unused plugins?", "&Yes\n&No", 2)
+    if choice == 1 then
+        vim.pack.del(unused_plugins)
+    end
+end
+
+--- rm -rf ~/.local/share/nvim/site/pack/core/opt/*
+--- :lua vim.pack.update() --> review then do :w
+vim.keymap.set("n", "<leader>pu", ":lua vim.pack.update()<CR>")
+vim.keymap.set("n", "<leader>pc", pack_clean)
 
 ---------------------------------------------------------------- Copilot
 -- vim.g.copilot_enabled = false
@@ -432,32 +449,17 @@ vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
 vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-word)')
 vim.keymap.set('i', '<C-/>', '<Plug>(copilot-dismiss)')
 vim.g.copilot_no_tab_map = true
-----------------------------------------------------------------
 
 ---------------------------------------------------------------- Marks
+
 require("marks").setup({
     builtin_marks = { ".", "<", ">", "^" },
     refresh_interval = 250,
     sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
 })
--- mx              Set mark x
--- m,              Set the next available alphabetical (lowercase) mark
--- m;              Toggle the next available mark at the current line
--- dmx             Delete mark x
--- dm-             Delete all marks on the current line
--- dm<space>       Delete all marks in the current buffer
 -- m]              Move to next mark
 -- m[              Move to previous mark
--- m:              Preview mark. This will prompt you for a specific mark to
---                 preview; press <cr> to preview the next mark.
---
--- m[0-9]          Add a bookmark from bookmark group[0-9].
--- dm[0-9]         Delete all bookmarks from bookmark group[0-9].
--- m}              Move to the next bookmark having the same type as the bookmark under
---                 the cursor. Works across buffers.
--- m{              Move to the previous bookmark having the same type as the bookmark under
---                 the cursor. Works across buffers.
--- dm=             Delete the bookmark under the cursor.
+
 ----------------------------------------------------------------
 
 -- https://github.com/lewis6991/gitsigns.nvim
@@ -534,8 +536,12 @@ require("marks").setup({
 --     end
 -- })
 
+----------------------------------------------------------------
+
 -- require("grug-far").setup()
 -- vim.keymap.set({ "n" }, "<leader>rr", ":GrugFar<CR>", { desc = "Find are Replace" })
+
+----------------------------------------------------------------
 
 require("blink.cmp").setup({
     -- fuzzy = { implementation = 'prefer_rust_with_warning' },
@@ -560,38 +566,19 @@ require("blink.cmp").setup({
     },
 })
 
+----------------------------------------------------------------
+
 require("nvim-autopairs").setup()
+
+----------------------------------------------------------------
+
 require('oil').setup({
     delete_to_trash = true,
 })
 
-local function pack_clean()
-    local active_plugins = {}
-    local unused_plugins = {}
-
-    for _, plugin in ipairs(vim.pack.get()) do
-        active_plugins[plugin.spec.name] = plugin.active
-    end
-
-    for _, plugin in ipairs(vim.pack.get()) do
-        if not active_plugins[plugin.spec.name] then
-            table.insert(unused_plugins, plugin.spec.name)
-        end
-    end
-
-    if #unused_plugins == 0 then
-        print("No unused plugins.")
-        return
-    end
-
-    local choice = vim.fn.confirm("Remove unused plugins?", "&Yes\n&No", 2)
-    if choice == 1 then
-        vim.pack.del(unused_plugins)
-    end
-end
-
-vim.keymap.set("n", "<leader>pc", pack_clean)
-
+-- Quick file navigation
+vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open file explorer" })
+-- vim.keymap.set("n", "<leader>e", ":Explore<CR>", { desc = "Open file explorer" })
 
 ---------------------------------------------------------------- LSP
 
@@ -694,11 +681,6 @@ vim.lsp.enable({
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("my.lsp", {}),
     callback = function(args)
-        -- -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-        -- -- to define small helper and utility functions so you don't have to repeat yourself.
-        -- --
-        -- -- In this case, we create a function that lets us more easily define mappings specific
-        -- -- for LSP related items. It sets the mode, buffer and description for us each time.
         local map = function(keys, func, desc, mode)
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = args.buf, desc = 'LSP: ' .. desc })
@@ -707,12 +689,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- https://neovim.io/doc/user/lsp.html#lsp-buf
         -- https://neovim.io/doc/user/lsp.html#lsp-defaults
 
-        -- in insert mode: <C-S> signature
-        -- open diagnostic window: <C-wd>
-        map('gd', require("fzf-lua").diagnostics_document, '[G]oto [D]iagnostics')
+        -- in insert mode: <C-S> to show signature
 
-        -- -- Rename the variable under your cursor.
-        -- --  Most Language Servers support renaming across files, etc.
         map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
         --
         -- -- Execute a code action, usually your cursor needs to be on top of an error
@@ -720,7 +698,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
         map('gra', require("fzf-lua").lsp_code_actions, '[G]oto Code [A]ction', { 'n', 'x' })
         --
-        -- -- Find references for the word under your cursor.
         -- map('grr', vim.lsp.buf.references, '[G]oto [R]eferences')
         map('grr', require("fzf-lua").lsp_references, '[G]oto [R]eferences')
         --
@@ -737,11 +714,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- -- WARN: This is not Goto Definition, this is Goto Declaration.
         -- --  For example, in C this would take you to the header.
         -- map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-        --
-        -- -- Jump to the type of the word under your cursor.
-        -- --  Useful when you're not sure what type a variable is and you want to see
-        -- --  the definition of its *type*, not where it was *defined*.
-        -- map('grt', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
         --
         -- -- Fuzzy find all the symbols in your current document.
         -- --  Symbols are things like variables, functions, types, etc.
@@ -791,14 +763,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
     end,
 })
-
--- Signature help
--- no need for below just use <C-s> to show it
--- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers["signature_help"], {
--- 	border = "single",
--- 	close_events = { "CursorMoved", "BufHidden" },
--- })
--- vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 
 ---------------------------------------------------------------- Treesitter
 
@@ -853,8 +817,6 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.treesitter.start(args.buf) -- Enable highlighting
     end,
 })
--- "c",
--- 'ts_ls',
 
 --- if pack get updated then also update treesitter
 --- Simple
@@ -881,63 +843,21 @@ vim.api.nvim_create_autocmd("PackChanged", {
     end,
 })
 
----------------------------------------------------------------- Autoformat
---- manual format not using plugin
--- vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
--- local conform = require("conform")
-
--- --- manual format using plugin
--- -- vim.keymap.set("n", "<leader>lf", function()
--- -- 	conform.format({ async = true, lsp_format = "fallback" })
--- -- end)
---
--- -- Autoformat
--- conform.setup({
---     notify_on_error = false,
---     format_on_save = function(bufnr)
---         -- Disable "format_on_save lsp_fallback" for languages that don't
---         -- have a well standardized coding style. You can add additional
---         -- languages here or re-enable it for the disabled ones.
---         local disable_filetypes = { c = true, cpp = true }
---         if disable_filetypes[vim.bo[bufnr].filetype] then
---             return nil
---         else
---             return {
---                 timeout_ms = 500,
---                 lsp_format = "fallback",
---             }
---         end
---     end,
---     formatters_by_ft = {
---         lua = { "stylua" },
---         -- Conform can also run multiple formatters sequentially
---         -- python = { "isort", "black" },
---         --
---         -- You can use 'stop_after_first' to run the first available formatter from the list
---         -- javascript = { "prettierd", "prettier", stop_after_first = true },
---     },
--- })
-
 ---------------------------------------------------------------- Picker
 
--- fzf-lua
-
+-- https://github.com/ibhagwan/fzf-lua#customization
 require('fzf-lua').setup({
     -- <C-x> remove item from the list
     -- <M-a> Add all items to quickfix list
     -- <M-q> send all items to quickfix list
-    -- :cdo s/word/replace
+    -- :cdo s/word/replace/g
     -- :cdo s/word/replace/gc
     -- ["<S-down>"]    = "preview-page-down",
     -- ["<S-up>"]      = "preview-page-up",
     -- ["<M-S-down>"]  = "preview-down",
     -- ["<M-S-up>"]    = "preview-up",
     marks = {
-        -- marks = "",
-        marks = "%a", -- filter vim marks with a lua pattern
-        -- for example if you want to only show user defined marks
-        -- you would set this option as %a this would match characters from [A-Za-z]
-        -- or if you want to show only numbers you would set the pattern to %d (0-9).
+        marks = "%a",
     },
 })
 vim.keymap.set({ "n" }, "<leader>sb", require("fzf-lua").buffers, { desc = "Picker file" })
@@ -946,14 +866,12 @@ vim.keymap.set({ "n" }, "<leader>so", require("fzf-lua").oldfiles, { desc = "Pic
 vim.keymap.set({ "n" }, "<leader>sg", require("fzf-lua").live_grep, { desc = "Picker file" })
 vim.keymap.set({ "n" }, "<leader>sc", require("fzf-lua").lgrep_curbuf, { desc = "Picker file" })
 vim.keymap.set({ "n" }, "<leader>st", require("fzf-lua").git_status, { desc = "Picker file" })
+        -- open diagnostic window: <C-wd>
+vim.keymap.set({ "n" }, "<leader>sd", require("fzf-lua").diagnostics_document, { desc = '[G]oto [D]iagnostics' })
 -- live grep current buffer -> lgrep_curbuf
 vim.keymap.set({ "n" }, "<leader>sq", require("fzf-lua").quickfix, { desc = "Picker file" })
 vim.keymap.set({ "n" }, "<leader>sm", require("fzf-lua").marks, { desc = "Picker file" })
 vim.keymap.set({ "n" }, "<leader>s?", require("fzf-lua").builtin, { desc = "Picker file" })
--- vim.keymap.set({ "n" }, "<leader>sf", ":Pick files<CR>", { desc = "Picker file" })
-
--- lsp
--- vim.keymap.set({ "n" }, "<leader>sd", require("fzf-lua").diagnostics_document, { desc = "Picker file" })
 
 ----------------------------------------------------------------
 
@@ -962,6 +880,3 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Close all buffers and keep the open one only
 -- vim.keymap.set("n", "<leader>b", "<cmd>:%bd|e#|bd#<CR>", { desc = "Close all buffers and keep the open one only" })
-
--- Diagnostic keymaps
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
