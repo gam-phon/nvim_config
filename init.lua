@@ -127,7 +127,7 @@ vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yankin
 -- vim.keymap.set("n", "<A-k>", "<C-w>k", { desc = "Move to top window" })
 -- vim.keymap.set("n", "<A-l>", "<C-w>l", { desc = "Move to right window" })
 -- vim.keymap.set("n", "<A-q>", ":q<CR>", { desc = "Split window vertically" })
-vim.keymap.set("n", "<A-v>", ":botright 195vsplit<CR>", { desc = "Split window vertically" })
+vim.keymap.set("n", "<A-v>", ":botright 205vsplit<CR>", { desc = "Split window vertically" })
 
 -- Splitting & Resizing
 -- <C-w>v -> split window vertically
@@ -157,6 +157,9 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- Better J behavior
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
+
+-- To remap C-\ C-n (exit terminal mode) to C-s in Neovim, add this to your configuration:
+vim.keymap.set('t', '<C-s>', '<C-\\><C-n>', { noremap = true })
 
 --- Learning
 -- TIP: Disable arrow keys in normal mode
@@ -238,6 +241,8 @@ vim.api.nvim_create_autocmd("TermOpen", {
         vim.opt_local.number = false
         vim.opt_local.relativenumber = false
         vim.opt_local.signcolumn = "no"
+        -- enter terminal mode
+        vim.keymap.set('n', '<Esc>', 'i', { buffer = true })
     end,
 })
 
@@ -562,7 +567,8 @@ require("blink.cmp").setup({
         -- ['<C-y>'] = { 'select_and_accept', 'fallback' },
         ['<Up>'] = {},
         ['<Down>'] = {},
-        ['<TAB>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        -- ['<TAB>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<Left>'] = {},
         ['<Right>'] = {},
         ['<S-up>'] = { 'scroll_documentation_up', 'fallback' },
