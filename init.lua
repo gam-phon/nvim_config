@@ -450,7 +450,7 @@ vim.keymap.set('i', '<Right>', 'copilot#Accept("\\<CR>")', {
 -- vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-word)')
 vim.keymap.set('i', '<Left>', '<Plug>(copilot-accept-word)')
 -- vim.keymap.set('i', '<C-/>', '<Plug>(copilot-dismiss)')
-vim.keymap.set('i', '<Down>', '<Plug>(copilot-dismiss)')
+-- vim.keymap.set('i', '<Down>', '<Plug>(copilot-dismiss)')
 vim.g.copilot_no_tab_map = true
 
 ---------------------------------------------------------------- Marks
@@ -872,7 +872,7 @@ vim.keymap.set({ "n" }, "<leader>so", require("fzf-lua").oldfiles, { desc = "Pic
 vim.keymap.set({ "n" }, "<leader>sg", require("fzf-lua").live_grep, { desc = "Picker file" })
 vim.keymap.set({ "n" }, "<leader>sc", require("fzf-lua").lgrep_curbuf, { desc = "Picker file" })
 vim.keymap.set({ "n" }, "<leader>st", require("fzf-lua").git_status, { desc = "Picker file" })
-        -- open diagnostic window: <C-wd>
+-- open diagnostic window: <C-wd>
 vim.keymap.set({ "n" }, "<leader>sd", require("fzf-lua").diagnostics_document, { desc = '[G]oto [D]iagnostics' })
 -- live grep current buffer -> lgrep_curbuf
 vim.keymap.set({ "n" }, "<leader>sq", require("fzf-lua").quickfix, { desc = "Picker file" })
