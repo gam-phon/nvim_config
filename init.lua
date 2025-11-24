@@ -928,6 +928,8 @@ require('fzf-lua').setup({
     -- <M-q> send all items to quickfix list
     -- :cdo s/word/replace
     -- :cdo s/word/replace/gc
+    -- :cdo undo
+    -- :cfdo  -> read about it
     -- ["<S-down>"]    = "preview-page-down",
     -- ["<S-up>"]      = "preview-page-up",
     -- ["<M-S-down>"]  = "preview-down",
