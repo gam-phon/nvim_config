@@ -4,5 +4,5 @@ Minimal neovim configuration
 ## Clean up
 
 ```
-rm -rf /Users/yaser/.local/share/nvim/site/pack/core/opt/*
+rm -rf ~/.local/share/nvim/site/pack/core/opt/*
 ```
