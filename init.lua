@@ -30,7 +30,7 @@ vim.o.breakindent = true -- Enable break indent
 -- vim.o.ignorecase = true                          -- Case insensitive search
 -- vim.o.smartcase = true                           -- Case sensitive if uppercase in search
 -- vim.o.hlsearch = false                           -- Don't highlight search results
--- vim.o.incsearch = true                           -- Show matches as you type
+-- vim.o.incsearch = true -- Show matches as you type
 
 -- Visual settings
 -- vim.o.termguicolors = true                       -- Enable 24-bit colors
@@ -161,6 +161,11 @@ vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position"
 -- To remap C-\ C-n (exit terminal mode) to C-s in Neovim, add this to your configuration:
 vim.keymap.set('t', '<C-s>', '<C-\\><C-n>', { noremap = true })
 
+-- delete buffer without closing window
+vim.keymap.set("n", "<leader>b", ":set bufhidden=delete | bnext<CR>")
+
+-- detach
+vim.keymap.set('n', '<leader>q', ':detach<CR>', { noremap = true, silent = true })
 --- Learning
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
