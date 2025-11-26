@@ -876,6 +876,16 @@ require('fzf-lua').setup({
     marks = {
         marks = "%a",
     },
+    keymap = {
+        fzf = {
+            ["ctrl-a"] = "toggle-all",
+        },
+    },
+    actions = {
+        files = {
+            ["ctrl-q"] = require('fzf-lua').actions.file_sel_to_qf,
+        },
+    },
 })
 vim.keymap.set({ "n" }, "<leader>sb", require("fzf-lua").buffers, { desc = "Picker file" })
 vim.keymap.set({ "n" }, "<leader>sf", require("fzf-lua").files, { desc = "Picker files" })
