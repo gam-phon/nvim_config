@@ -883,6 +883,7 @@ require('fzf-lua').setup({
     },
     actions = {
         files = {
+            true,
             ["ctrl-q"] = require('fzf-lua').actions.file_sel_to_qf,
         },
     },
