@@ -624,9 +624,6 @@ vim.diagnostic.config({
     severity_sort = true -- Enable to automatically prioritize higher severities
 })
 
-
-
-
 -- vim.lsp.config('ruff', {
 --     init_options = {
 --         settings = {
@@ -678,6 +675,7 @@ vim.lsp.config('harper_ls', {
     },
 })
 
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 -- :LspInfo
 vim.lsp.enable({
     -- brew install lua-language-server
@@ -685,7 +683,9 @@ vim.lsp.enable({
     -- inside pyproject.toml
     "ruff",
     -- inside pyproject.toml
-    "basedpyright",
+    -- "basedpyright",
+    -- inside pyproject.toml
+    "ty",
     -- brew install harper
     "harper_ls",
 })
