@@ -122,12 +122,7 @@ vim.keymap.set("x", "<leader>p", '"_dP', { desc = "Paste without yanking" })
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
 
 -- Better window navigation
--- vim.keymap.set("n", "<A-h>", "<C-w>h", { desc = "Move to left window" })
--- vim.keymap.set("n", "<A-j>", "<C-w>j", { desc = "Move to bottom window" })
--- vim.keymap.set("n", "<A-k>", "<C-w>k", { desc = "Move to top window" })
--- vim.keymap.set("n", "<A-l>", "<C-w>l", { desc = "Move to right window" })
--- vim.keymap.set("n", "<A-q>", ":q<CR>", { desc = "Split window vertically" })
-vim.keymap.set("n", "<A-v>", ":botright 205vsplit<CR>", { desc = "Split window vertically" })
+-- vim.keymap.set("n", "<A-v>", ":botright 205vsplit<CR>", { desc = "Split window vertically" })
 
 -- Splitting & Resizing
 -- <C-w>v -> split window vertically
@@ -142,13 +137,6 @@ vim.keymap.set("n", "<A-v>", ":botright 205vsplit<CR>", { desc = "Split window v
 -- <C-w>l -> focus left window
 -- <C-w>k -> focus up window
 -- <C-w>j -> focus down window
--- :botright 200vsplit
--- vim.keymap.set("n", "<leader>wv", ":vsplit<CR>", { desc = "Split window vertically" })
--- vim.keymap.set("n", "<leader>wh", ":split<CR>", { desc = "Split window horizontally" })
--- vim.keymap.set("n", "<C-Up>", ":resize +2<CR>", { desc = "Increase window height" })
--- vim.keymap.set("n", "<C-Down>", ":resize -2<CR>", { desc = "Decrease window height" })
--- vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
--- vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
 
 -- Better indenting in visual mode
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
@@ -162,10 +150,10 @@ vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position"
 vim.keymap.set('t', '<C-s>', '<C-\\><C-n>', { noremap = true })
 
 -- delete buffer without closing window
-vim.keymap.set("n", "<leader>b", ":set bufhidden=delete | bnext<CR>")
+-- vim.keymap.set("n", "<leader>b", ":set bufhidden=delete | bnext<CR>")
 
 -- detach
-vim.keymap.set('n', '<leader>q', ':detach<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<leader>q', ':detach<CR>', { noremap = true, silent = true })
 --- Learning
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -386,9 +374,9 @@ end
 -- end
 
 -- Key mappings
-vim.keymap.set("n", "<A-i>", FloatingTerminal, { noremap = true, silent = true, desc = "Toggle floating terminal" })
+vim.keymap.set("n", "<A-o>", FloatingTerminal, { noremap = true, silent = true, desc = "Toggle floating terminal" })
 -- vim.keymap.set("t", "<Esc>", function()
-vim.keymap.set("t", "<A-i>", function()
+vim.keymap.set("t", "<A-o>", function()
     if terminal_state.is_open then
         vim.api.nvim_win_close(terminal_state.win, false)
         terminal_state.is_open = false
