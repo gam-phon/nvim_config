@@ -390,6 +390,8 @@ end
 -- https://neovim.io/doc/user/pack.html
 vim.pack.add({
     { src = "https://github.com/chentoast/marks.nvim" },
+    -- https://github.com/BartSte/nvim-project-marks
+    { src = "https://github.com/BartSte/nvim-project-marks" },
     -- Theme
     { src = "https://github.com/folke/tokyonight.nvim" },
     -- :checkhealth nvim-treesitter
@@ -407,6 +409,9 @@ vim.pack.add({
     -- { src = "https://github.com/MagicDuck/grug-far.nvim" },
     -- { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/github/copilot.vim" },
+    { src = "https://github.com/nvim-lua/plenary.nvim" }, -- required by codecompanion
+    -- { src = "https://github.com/NickvanDyke/opencode.nvim" },
+
 })
 
 local function pack_clean()
@@ -452,10 +457,72 @@ vim.keymap.set('i', '<Left>', '<Plug>(copilot-accept-word)')
 -- vim.keymap.set('i', '<Down>', '<Plug>(copilot-dismiss)')
 vim.g.copilot_no_tab_map = true
 
+-- opeAutomatorncode
+
+-- vim.g.opencode_opts = {
+--     -- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition".
+-- }
+--
+-- -- Required for `opts.events.reload`.
+-- vim.o.autoread = true
+--
+-- -- Recommended/example keymaps.
+-- -- vim.keymap.set({ "n", "x" }, "<C-a>", function() require("opencode").ask("@this: ", { submit = true }) end, { desc = "Ask opencode" })
+-- vim.keymap.set({ "n", "x" }, "<C-x>", function() require("opencode").select() end, { desc = "Execute opencode action…" })
+-- -- vim.keymap.set({ "n", "t" }, "<C-.>", function() require("opencode").toggle() end,                          { desc = "Toggle opencode" })
+--
+-- -- vim.keymap.set({ "n", "x" }, "go",  function() return require("opencode").operator("@this ") end,        { expr = true, desc = "Add range to opencode" })
+-- -- vim.keymap.set("n",          "goo", function() return require("opencode").operator("@this ") .. "_" end, { expr = true, desc = "Add line to opencode" })
+--
+-- vim.keymap.set("n", "<S-C-u>", function() require("opencode").command("session.half.page.up") end,
+--     { desc = "opencode half page up" })
+-- vim.keymap.set("n", "<S-C-d>", function() require("opencode").command("session.half.page.down") end,
+--     { desc = "opencode half page down" })
+
+-- You may want these if you stick with the opinionated "<C-a>" and "<C-x>" above — otherwise consider "<leader>o".
+-- vim.keymap.set("n", "+", "<C-a>", { desc = "Increment", noremap = true })
+-- vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement", noremap = true })
 ---------------------------------------------------------------- Marks
 
+
+
+
+-- Get the name of the current working directory.
+local function cwd_name()
+    return vim.fn.fnamemodify(vim.fn.getcwd(), ':t')
+end
+--
+require('projectmarks').setup({
+    -- Set Neovim's shadafile to the given value and call `rshada!` on that value,
+    -- if it can be found by moving up the directory tree. If not, the global
+    -- shada file is used.
+    -- shadafile = 'nvim.shada',
+    shadafile = "~/shadas/" .. cwd_name() .. ".shada",
+
+    -- If set to true, the following happens:
+    -- - The mapping "'" is appended by the `LastPosition` command.
+    -- - The mapping "`" is appended by the `LastColumnPosition` command.
+    -- - The `m` key, the `:mark` command, and the `:delmark` command are appended
+    --   by a function that refreshes the lualine statusline. If you do not use
+    --   this feature, nothing will happen.
+    mappings = true,
+
+    -- If set to true, the "mark" and "delmarks" command are replaced by the
+    -- "Mark" and "DelMarks" using `cnoreabbrev`. This is useful when you rely on
+    -- `lualine.marks_optimized` function, as the "Mark" and "DelMarks" commands
+    -- will refresh lualine.
+    abbreviations = false,
+    --
+    -- -- Message to be displayed when jumping to a mark. No message is displayed if
+    -- -- set to an empty string.
+    message = ''
+    --
+    -- Message opts, table passed to nvim_notify.
+    -- message_opts = { timeout = 2000 }
+})
+
 require("marks").setup({
-    builtin_marks = { ".", "<", ">", "^" },
+    builtin_marks = { ".", "<", ">", "^", "\"", "'" },
     refresh_interval = 250,
     sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
 })
@@ -548,6 +615,12 @@ require("marks").setup({
 require("blink.cmp").setup({
     -- fuzzy = { implementation = 'prefer_rust_with_warning' },
     fuzzy = { implementation = 'rust' },
+    completion = {
+        documentation = {
+            auto_show = true,
+            auto_show_delay_ms = 200,
+        },
+    },
     -- signature = { enabled = true },
     -- sources = {
     --     default = { 'lsp', 'path', 'snippets', 'buffer' },
@@ -562,7 +635,7 @@ require("blink.cmp").setup({
         ['<Up>'] = {},
         ['<Down>'] = {},
         -- ['<TAB>'] = { 'show', 'show_documentation', 'hide_documentation' },
-        ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<C-k>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<Left>'] = {},
         ['<Right>'] = {},
         ['<S-up>'] = { 'scroll_documentation_up', 'fallback' },
@@ -655,6 +728,14 @@ vim.lsp.config('basedpyright', {
     },
 })
 
+-- vim.lsp.config('ty', {
+--     settings = {
+--         ty = {
+--             -- ty language server settings go here
+--         }
+--     }
+-- })
+
 -- https://writewithharper.com/docs/integrations/neovim
 vim.lsp.config('harper_ls', {
     settings = {
@@ -672,11 +753,15 @@ vim.lsp.enable({
     -- inside pyproject.toml
     "ruff",
     -- inside pyproject.toml
-    -- "basedpyright",
+    "basedpyright",
     -- inside pyproject.toml
-    "ty",
+    -- "ty",
     -- brew install harper
     "harper_ls",
+    -- npm install -g @biomejs/biome
+    "biome",
+    -- npm install -g typescript typescript-language-server
+    "ts_ls",
 })
 
 
