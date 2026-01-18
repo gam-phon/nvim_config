@@ -447,12 +447,13 @@ vim.keymap.set("n", "<leader>pc", pack_clean)
 ---------------------------------------------------------------- Copilot
 -- vim.g.copilot_enabled = false
 -- vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
-vim.keymap.set('i', '<Right>', 'copilot#Accept("\\<CR>")', {
+-- vim.keymap.set('i', '<Right>', 'copilot#Accept("\\<CR>")', {
+vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
     expr = true,
     replace_keycodes = false,
 })
--- vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-word)')
-vim.keymap.set('i', '<Left>', '<Plug>(copilot-accept-word)')
+vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-word)')
+-- vim.keymap.set('i', '<Left>', '<Plug>(copilot-accept-word)')
 -- vim.keymap.set('i', '<C-/>', '<Plug>(copilot-dismiss)')
 -- vim.keymap.set('i', '<Down>', '<Plug>(copilot-dismiss)')
 vim.g.copilot_no_tab_map = true
