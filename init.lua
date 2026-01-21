@@ -452,7 +452,7 @@ vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
     expr = true,
     replace_keycodes = false,
 })
-vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-word)')
+vim.keymap.set('i', '<C-h>', '<Plug>(copilot-accept-word)')
 -- vim.keymap.set('i', '<Left>', '<Plug>(copilot-accept-word)')
 -- vim.keymap.set('i', '<C-/>', '<Plug>(copilot-dismiss)')
 -- vim.keymap.set('i', '<Down>', '<Plug>(copilot-dismiss)')
