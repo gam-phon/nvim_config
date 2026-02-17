@@ -410,13 +410,10 @@ vim.pack.add({
     -- { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/github/copilot.vim" },
     { src = "https://github.com/nvim-lua/plenary.nvim" }, -- required by codecompanion
-    { src = "https://github.com/MunifTanjim/nui.nvim" },       -- required by codediff
-    { src = "https://github.com/esmuellert/codediff.nvim" },
     -- { src = "https://github.com/NickvanDyke/opencode.nvim" },
     -- { src = "https://github.com/lewis6991/gitsigns.nvim" },
 })
 
-require("codediff").setup()
 
 local function pack_clean()
     local active_plugins = {}
