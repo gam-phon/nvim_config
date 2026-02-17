@@ -411,7 +411,7 @@ vim.pack.add({
     { src = "https://github.com/github/copilot.vim" },
     { src = "https://github.com/nvim-lua/plenary.nvim" }, -- required by codecompanion
     -- { src = "https://github.com/NickvanDyke/opencode.nvim" },
-
+    -- { src = "https://github.com/lewis6991/gitsigns.nvim" },
 })
 
 local function pack_clean()
@@ -530,8 +530,7 @@ require("marks").setup({
 -- m]              Move to next mark
 -- m[              Move to previous mark
 
-----------------------------------------------------------------
-
+---------------------------------------------------------------- Gitsigns
 -- https://github.com/lewis6991/gitsigns.nvim
 -- require("gitsigns").setup({
 --     signs = {
@@ -655,7 +654,7 @@ require('oil').setup({
 })
 
 -- Quick file navigation
-vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open file explorer" })
+-- vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open file explorer" })
 -- vim.keymap.set("n", "<leader>e", ":Explore<CR>", { desc = "Open file explorer" })
 
 ---------------------------------------------------------------- LSP
