@@ -5,10 +5,6 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
-    "codediff.nvim": {
-      "rev": "9ba04ddf48827f7f765e0d1eeb3a22650323c2a6",
-      "src": "https://github.com/esmuellert/codediff.nvim"
-    },
     "copilot.vim": {
       "rev": "a12fd5672110c8aa7e3c8419e28c96943ca179be",
       "src": "https://github.com/github/copilot.vim"
@@ -20,10 +16,6 @@
     "marks.nvim": {
       "rev": "f353e8c",
       "src": "https://github.com/chentoast/marks.nvim"
-    },
-    "nui.nvim": {
-      "rev": "de740991c12411b663994b2860f1a4fd0937c130",
-      "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-autopairs": {
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
