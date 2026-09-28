@@ -1,0 +1,6 @@
+[tasks.cleanup]
+description = "Remove nvim state and data directories"
+run = [
+  "rm -rf ~/.local/state/nvim",
+  "rm -rf ~/.local/share/nvim",
+]
