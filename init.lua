@@ -390,8 +390,6 @@ end
 -- https://neovim.io/doc/user/pack.html
 vim.pack.add({
     { src = "https://github.com/chentoast/marks.nvim" },
-    -- https://github.com/BartSte/nvim-project-marks
-    { src = "https://github.com/BartSte/nvim-project-marks" },
     -- Theme
     { src = "https://github.com/folke/tokyonight.nvim" },
     -- :checkhealth nvim-treesitter
@@ -407,11 +405,7 @@ vim.pack.add({
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/saghen/blink.cmp",     version = vim.version.range('1.*'), },
     -- { src = "https://github.com/MagicDuck/grug-far.nvim" },
-    -- { src = "https://github.com/lewis6991/gitsigns.nvim" },
     -- { src = "https://github.com/github/copilot.vim" },
-    { src = "https://github.com/nvim-lua/plenary.nvim" }, -- required by codecompanion
-    { src = "https://github.com/esmuellert/codediff.nvim" },
-    -- { src = "https://github.com/NickvanDyke/opencode.nvim" },
     -- { src = "https://github.com/lewis6991/gitsigns.nvim" },
 })
 
@@ -493,34 +487,34 @@ local function cwd_name()
     return vim.fn.fnamemodify(vim.fn.getcwd(), ':t')
 end
 --
-require('projectmarks').setup({
-    -- Set Neovim's shadafile to the given value and call `rshada!` on that value,
-    -- if it can be found by moving up the directory tree. If not, the global
-    -- shada file is used.
-    -- shadafile = 'nvim.shada',
-    shadafile = "~/shadas/" .. cwd_name() .. ".shada",
-
-    -- If set to true, the following happens:
-    -- - The mapping "'" is appended by the `LastPosition` command.
-    -- - The mapping "`" is appended by the `LastColumnPosition` command.
-    -- - The `m` key, the `:mark` command, and the `:delmark` command are appended
-    --   by a function that refreshes the lualine statusline. If you do not use
-    --   this feature, nothing will happen.
-    mappings = true,
-
-    -- If set to true, the "mark" and "delmarks" command are replaced by the
-    -- "Mark" and "DelMarks" using `cnoreabbrev`. This is useful when you rely on
-    -- `lualine.marks_optimized` function, as the "Mark" and "DelMarks" commands
-    -- will refresh lualine.
-    abbreviations = false,
-    --
-    -- -- Message to be displayed when jumping to a mark. No message is displayed if
-    -- -- set to an empty string.
-    message = ''
-    --
-    -- Message opts, table passed to nvim_notify.
-    -- message_opts = { timeout = 2000 }
-})
+-- require('projectmarks').setup({
+--     -- Set Neovim's shadafile to the given value and call `rshada!` on that value,
+--     -- if it can be found by moving up the directory tree. If not, the global
+--     -- shada file is used.
+--     -- shadafile = 'nvim.shada',
+--     shadafile = "~/shadas/" .. cwd_name() .. ".shada",
+--
+--     -- If set to true, the following happens:
+--     -- - The mapping "'" is appended by the `LastPosition` command.
+--     -- - The mapping "`" is appended by the `LastColumnPosition` command.
+--     -- - The `m` key, the `:mark` command, and the `:delmark` command are appended
+--     --   by a function that refreshes the lualine statusline. If you do not use
+--     --   this feature, nothing will happen.
+--     mappings = true,
+--
+--     -- If set to true, the "mark" and "delmarks" command are replaced by the
+--     -- "Mark" and "DelMarks" using `cnoreabbrev`. This is useful when you rely on
+--     -- `lualine.marks_optimized` function, as the "Mark" and "DelMarks" commands
+--     -- will refresh lualine.
+--     abbreviations = false,
+--     --
+--     -- -- Message to be displayed when jumping to a mark. No message is displayed if
+--     -- -- set to an empty string.
+--     message = ''
+--     --
+--     -- Message opts, table passed to nvim_notify.
+--     -- message_opts = { timeout = 2000 }
+-- })
 
 require("marks").setup({
     builtin_marks = { ".", "<", ">", "^", "\"", "'" },
@@ -659,7 +653,7 @@ require('oil').setup({
 
 ----------------------------------------------------------------
 
-require("codediff").setup({})
+-- require("codediff").setup({})
 
 ---------------------------------------------------------------- LSP
 
