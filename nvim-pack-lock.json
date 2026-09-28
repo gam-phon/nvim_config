@@ -5,10 +5,6 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
-    "copilot.vim": {
-      "rev": "f89e977c87180519ba3b942200e3d05b17b1e2fc",
-      "src": "https://github.com/github/copilot.vim"
-    },
     "fzf-lua": {
       "rev": "43bda24f711e0c13428f16056002aebc20b38e04",
       "src": "https://github.com/ibhagwan/fzf-lua"
