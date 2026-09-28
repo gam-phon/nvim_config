@@ -406,7 +406,7 @@ vim.pack.add({
     { src = "https://github.com/saghen/blink.cmp",     version = vim.version.range('1.*'), },
     -- { src = "https://github.com/MagicDuck/grug-far.nvim" },
     -- { src = "https://github.com/lewis6991/gitsigns.nvim" },
-    { src = "https://github.com/github/copilot.vim" },
+    -- { src = "https://github.com/github/copilot.vim" },
 })
 
 local function pack_clean()
@@ -440,17 +440,17 @@ vim.keymap.set("n", "<leader>pu", ":lua vim.pack.update()<CR>")
 vim.keymap.set("n", "<leader>pc", pack_clean)
 
 ---------------------------------------------------------------- Copilot
--- vim.g.copilot_enabled = false
--- vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
-vim.keymap.set('i', '<Right>', 'copilot#Accept("\\<CR>")', {
-    expr = true,
-    replace_keycodes = false,
-})
--- vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-word)')
-vim.keymap.set('i', '<Left>', '<Plug>(copilot-accept-word)')
--- vim.keymap.set('i', '<C-/>', '<Plug>(copilot-dismiss)')
--- vim.keymap.set('i', '<Down>', '<Plug>(copilot-dismiss)')
-vim.g.copilot_no_tab_map = true
+-- -- vim.g.copilot_enabled = false
+-- -- vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
+-- vim.keymap.set('i', '<Right>', 'copilot#Accept("\\<CR>")', {
+--     expr = true,
+--     replace_keycodes = false,
+-- })
+-- -- vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-word)')
+-- vim.keymap.set('i', '<Left>', '<Plug>(copilot-accept-word)')
+-- -- vim.keymap.set('i', '<C-/>', '<Plug>(copilot-dismiss)')
+-- -- vim.keymap.set('i', '<Down>', '<Plug>(copilot-dismiss)')
+-- vim.g.copilot_no_tab_map = true
 
 ---------------------------------------------------------------- Marks
 
